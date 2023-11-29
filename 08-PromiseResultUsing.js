@@ -32,18 +32,20 @@ const teslaCars = new Promise((resolve, reject) => {
 
 teslaCars
 .then(data => {
-    setTimeout(() => {
-        cards.innerHTML = data.map(car => `
-    <div class="card m-3" style="width: 18rem">
-          <img src="${car.image}" class="card-img-top" alt="car" />
-          <div class="card-body">
-            <h5 class="card-title text-danger">${car.name}</h5>
-            <p
-              class="card-text bg-success text-light rounded text-center p-1 h3">
-              ${car.price} $</p>
-          </div>
-        </div>
-      </div>`).join('')
-    },500)
+    data.map((car, index) => {
+        setTimeout(() => {
+            cards.innerHTML += `
+            <div class="card m-3" style="width: 18rem">
+                <img src="${car.image}" class="card-img-top" alt="car" />
+                <div class="card-body">
+                    <h5 class="card-title text-danger">${car.name}</h5>
+                    <p class="card-text bg-success text-light rounded text-center p-1 h3">
+                       ${car.price} $
+                    </p>
+                </div>
+            </div>
+                    `
+        },1000 * (index+1)) 
+    })
 })
 .catch(err => alert(err));
